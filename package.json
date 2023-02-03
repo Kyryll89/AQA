@@ -1,0 +1,22 @@
+{
+  "name": "aqa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "regression": "npx playwright test",
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.29.2",
+    "allure-playwright": "^2.0.0-beta.24"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "jest": "^27.5.1",
+    "jest-circus-allure-environment": "^1.1.1",
+    "jest-playwright": "^0.0.1"
+  }
+}
