@@ -5,25 +5,25 @@ const Pages = require("./pageobjects/Pages.js");
 
 // setupEnv();
 
-jest.setTimeout(3000000);
+// jest.setTimeout(3000000);
 // jest.retryTimes(2)
 
 let context
-beforeEach(async () => {
+// // beforeEach(async () => {
 
-  // const app = await new AppManager()
+//   // const app = await new AppManager()
 
   
-  allure.writeEnvironmentInfo({
-    BROWSER: process.env.BROWSER ? process.env.BROWSER : "CHROME",
-    ENVIRONMENT: process.env.ENV,
-    "BASE URL": process.env.base_url,
-  });
-});
+//   allure.writeEnvironmentInfo({
+//     BROWSER: process.env.BROWSER ? process.env.BROWSER : "CHROME",
+//     ENVIRONMENT: process.env.ENV,
+//     "BASE URL": process.env.base_url,
+//   });
+// });
 
-afterEach(async () => {
+// afterEach(async () => {
 
-});
+// });
 
 // global.it = AppManager.prototype.it
 

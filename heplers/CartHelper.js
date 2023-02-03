@@ -1,17 +1,18 @@
 const {URLS, CREDENTIALS} = require('../constants/Constants.js');
-const { PAGES } = require("../pageobjects/Pages.js");
+const Pages = require('../pageobjects/Pages.js');
+// const { PAGES } = require("../pageobjects/Pages.js");
 
-class CartHelper{
+class CartHelper extends Pages{
     
     async searchProductAddCart(page, productName)
     {
-        const titles = await PAGES.dashboardPage.productsText.getAllTextContent(page);     
+        const titles = await this.dashboardPage.productsText.getAllTextContent(page);     
         console.log(titles);
         for(let i = 0; i < titles.length; i++)
         {
             if(titles[i] === productName)
                 {
-                    await page.locator(PAGES.dashboardPage.products.elementLocator).nth(i).locator("//button[contains(text(), ' Add To Cart')]").click();
+                    await page.locator(this.dashboardPage.products.elementLocator).nth(i).locator("//button[contains(text(), ' Add To Cart')]").click();
                     break;
                 }
         }
