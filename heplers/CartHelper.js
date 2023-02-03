@@ -17,6 +17,5 @@ class CartHelper extends Pages{
                 }
         }
     }
-    
 }
 module.exports = {CartHelper}
