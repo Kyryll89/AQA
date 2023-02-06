@@ -1,7 +1,7 @@
 
 const dotenv = require("dotenv");
 const Helpers = require("./heplers/Helpers.js");
-const Pages = require("./pageobjects/Pages.js");
+const Pages = require("./pages/Pages.js");
 
 // setupEnv();
 

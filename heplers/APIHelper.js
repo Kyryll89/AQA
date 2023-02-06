@@ -1,6 +1,7 @@
 const { URLS } = require("../constants/Constants.js");
+const Pages = require("../pages/Pages.js");
 
-class APIHelper
+class APIHelper extends Pages
 {
     async getToken(apiContext,loginPayLoad)
      {

@@ -1,11 +1,11 @@
-const { PAGES } = require("../pageobjects/Pages.js");
+const Pages = require("../pages/Pages.js");
 
-class LoginHelper {
+class LoginHelper extends Pages {
 
     async loginToSite(page, userName, password){
-        await PAGES.loginPage.userName.typeInput(page, userName);
-        await PAGES.loginPage.password.typeInput(page, password);
-        await PAGES.loginPage.signInButton.clickElement(page);
+        await this.loginPage.userName.typeInput(page, userName);
+        await this.loginPage.password.typeInput(page, password);
+        await this.loginPage.signInButton.clickElement(page);
     }
     
 }

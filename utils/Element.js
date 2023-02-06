@@ -30,5 +30,9 @@ class Element {
         await page.locator(this.elementLocator).first().waitFor();
     }
 
+    async countElements(page){
+        return await page.locator(this.elementLocator).count();
+    }
+
 }
 module.exports = {Element};

@@ -1,6 +1,5 @@
 const {URLS, CREDENTIALS} = require('../constants/Constants.js');
-const {HELPERS} = require('../heplers/Helpers.js');
-const {PAGES} = require('../pageobjects/Pages.js');
+const {HELPERS, PAGES} = require('../main.js');
 const {test, expect, request} = require('@playwright/test');
 const loginPayLoad = {userEmail: CREDENTIALS.username, userPassword: CREDENTIALS.password};
 const orderPayLoad = {orders:[{country:"Cuba",productOrderedId:"6262e95ae26b7e1a10e89bf0"}]};
@@ -25,4 +24,3 @@ test('Should add first product to cart', async ({page})=>{
     
     await expect (page).toHaveURL(URLS.dashboardPageLink);
 })
-
