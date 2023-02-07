@@ -23,6 +23,7 @@ test('Should serch for the product & add to cart', async ({page})=>{
     await HELPERS.cartHelper.searchProductAddCart(page, CREDENTIALS.productName);
     await PAGES.header.cartButton.clickElement(page);
     await page.waitForLoadState("networkidle");
+    await page.pause();
     await expect (page.locator(PAGES.cartPage.productsInCartText.elementLocator)).toContainText(CREDENTIALS.productName);
 })
 

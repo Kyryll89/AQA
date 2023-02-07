@@ -34,5 +34,9 @@ class Element {
         return await page.locator(this.elementLocator).count();
     }
 
+    async typeInputWithDelaying (page, data){
+        await page.locator(this.elementLocator).type(data, {delay:200});
+    }
+
 }
 module.exports = {Element};

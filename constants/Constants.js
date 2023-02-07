@@ -21,6 +21,7 @@ module.exports.CREDENTIALS = {
 }
 
 module.exports.MESSAGES = {
-    allertDialogMessage: " Incorrect email or password. "
+    allertDialogMessage: " Incorrect email or password. ",
+    thankYouForTheOrderMessage: " Thankyou for the order. "
 }
 
