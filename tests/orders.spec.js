@@ -1,5 +1,5 @@
 const {CREDENTIALS, MESSAGES} = require('../constants/Constants.js');
-const {HELPERS, PAGES} = require('../main.js');
+const {HELPERS} = require('../main.js');
 const {test, expect, request} = require('@playwright/test');
 const loginPayLoad = {userEmail: CREDENTIALS.username, userPassword: CREDENTIALS.password};
 const orderPayLoad = {orders:[{country:"Cuba",productOrderedId:"6262e95ae26b7e1a10e89bf0"}]};
@@ -25,5 +25,5 @@ test.beforeEach( async ({page}) => {
 test('Should serch for the product & add to cart and place the order', async ({page})=> {
     await HELPERS.cartHelper.searchProductAddCart(page, CREDENTIALS.productName);
     await HELPERS.orderHelper.placeOrder(page, CREDENTIALS.country, CREDENTIALS.countryFirstLetters);
-    await expect (page.locator(PAGES.thankYouPage.thankYouMessage.elementLocator)).toContainText(MESSAGES.thankYouForTheOrderMessage);
+    await expect (await HELPERS.attributeHelper.returnThankYouMessageLocator(page)).toContainText(MESSAGES.thankYouForTheOrderMessage);
 })
