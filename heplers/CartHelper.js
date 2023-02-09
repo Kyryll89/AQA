@@ -38,4 +38,4 @@ class CartHelper extends Pages{
         }
     }
 }
-module.exports = {CartHelper}
+module.exports = CartHelper

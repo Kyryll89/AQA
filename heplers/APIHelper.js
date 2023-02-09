@@ -15,6 +15,13 @@ class APIHelper extends Pages
         return token;
     }
 
+    async setToken (page, token)
+    {
+        page.addInitScript(value => {
+            window.localStorage.setItem('token', value);
+        }, token);
+    }
+
 
     async createOrder(apiContext, loginPayLoad, orderPayLoad)
     {
@@ -35,4 +42,4 @@ class APIHelper extends Pages
         return response;
     }
 }
-module.exports = {APIHelper};
+module.exports = APIHelper;

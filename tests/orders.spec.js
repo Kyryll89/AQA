@@ -1,4 +1,4 @@
-const {URLS, CREDENTIALS, MESSAGES} = require('../constants/Constants.js');
+const {CREDENTIALS, MESSAGES} = require('../constants/Constants.js');
 const {HELPERS, PAGES} = require('../main.js');
 const {test, expect, request} = require('@playwright/test');
 const loginPayLoad = {userEmail: CREDENTIALS.username, userPassword: CREDENTIALS.password};
@@ -12,23 +12,18 @@ let response = {};
 //    response = await HELPERS.apiHelper.createOrder(apiContext, loginPayLoad, orderPayLoad);
 // })
 
-test.beforeAll( async()=>
-{
+test.beforeAll( async()=> {
    const apiContext = await request.newContext();
    response.token = await HELPERS.apiHelper.getToken(apiContext, loginPayLoad);
 })
 
 test.beforeEach( async ({page}) => {
-    page.addInitScript(value => {
-        window.localStorage.setItem('token', value);
-    }, response.token);
-    await page.goto(URLS.loginPageLink);
-    await PAGES.dashboardPage.productsText.waitForElement(page);
+    await HELPERS.apiHelper.setToken(page, response.token);
+    await HELPERS.navigationHelper.navigateToLoginPageAndWaitForElement(page);
 })
 
-test('Should serch for the product & add to cart and place the order', async ({page})=>{
-    await page.pause();
+test('Should serch for the product & add to cart and place the order', async ({page})=> {
     await HELPERS.cartHelper.searchProductAddCart(page, CREDENTIALS.productName);
-    await HELPERS.orderHelper.placeTheOrder(page, CREDENTIALS.country, CREDENTIALS.countryFirstLetters);
+    await HELPERS.orderHelper.placeOrder(page, CREDENTIALS.country, CREDENTIALS.countryFirstLetters);
     await expect (page.locator(PAGES.thankYouPage.thankYouMessage.elementLocator)).toContainText(MESSAGES.thankYouForTheOrderMessage);
 })

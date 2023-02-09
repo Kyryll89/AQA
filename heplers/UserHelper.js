@@ -1,6 +1,6 @@
 const Pages = require("../pages/Pages.js");
 
-class LoginHelper extends Pages {
+class UserHelper extends Pages {
 
     async loginToSite(page, userName, password){
         await this.loginPage.userName.typeInput(page, userName);
@@ -10,4 +10,4 @@ class LoginHelper extends Pages {
     
 }
 
-module.exports = {LoginHelper};
+module.exports = UserHelper;

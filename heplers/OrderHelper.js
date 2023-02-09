@@ -19,13 +19,12 @@ class OrderHelper extends Pages {
         }
     }
 
-    async placeTheOrder(page, country, countryFirstLetters)
+    async placeOrder(page, country, countryFirstLetters)
     {
         await this.header.cartButton.clickElement(page);
         await this.cartPage.checkoutButton.clickElement(page);
         await this.selectCountry(page, country, countryFirstLetters);
-        await this.ordersReviewPage.placeOrderButton.clickElement(page);
-        await page.waitForLoadState("networkidle");
+        await this.ordersReviewPage.placeOrderButton.clickElementAndWaitForLoadState(page);
     }
 
     // async findOrderIdAndGoToOrderDetailsPage(orderId)
@@ -44,4 +43,4 @@ class OrderHelper extends Pages {
     // }
 }
 
-module.exports = {OrderHelper};
+module.exports = OrderHelper;

@@ -10,6 +10,11 @@ class Element {
         await page.locator(this.elementLocator).click();
     }
 
+    async clickElementAndWaitForLoadState(page){
+        await page.locator(this.elementLocator).click();
+        await page.waitForLoadState("networkidle");
+    }
+
     async fillInput(page, data){
         await page.locator(this.elementLocator).fill(data);
     }
@@ -37,6 +42,11 @@ class Element {
     async typeInputWithDelaying (page, data){
         await page.locator(this.elementLocator).type(data, {delay:200});
     }
+
+    async returnElementLocator (page){
+        return page.locator(this.elementLocator)
+    }
+
 
 }
 module.exports = {Element};
