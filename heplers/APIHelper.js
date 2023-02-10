@@ -1,6 +1,7 @@
 const { URLS } = require("../constants/Constants.js");
+const Pages = require("../pages/Pages.js");
 
-class APIHelper
+class APIHelper extends Pages
 {
     async getToken(apiContext,loginPayLoad)
      {
@@ -12,6 +13,13 @@ class APIHelper
         const token =loginResponseJson.token;
         console.log(token);
         return token;
+    }
+
+    async setToken (page, token)
+    {
+        page.addInitScript(value => {
+            window.localStorage.setItem('token', value);
+        }, token);
     }
 
 
@@ -34,4 +42,4 @@ class APIHelper
         return response;
     }
 }
-module.exports = {APIHelper};
+module.exports = APIHelper;
