@@ -1,16 +1,20 @@
 const { URLS } = require("../constants/Constants.js");
+const {request} = require('@playwright/test');
 const Pages = require("../pages/Pages.js");
 
 class APIHelper extends Pages
 {
-    async getToken(apiContext,loginPayLoad)
+    async getToken(loginPayLoad, apiContext)
      {
+        if (apiContext == undefined){
+            apiContext = await request.newContext();
+            }
         const loginResponse =  await apiContext.post(URLS.apiLoginLink,
         {
             data: loginPayLoad
          } )
         const loginResponseJson = await loginResponse.json();
-        const token =loginResponseJson.token;
+        const token = loginResponseJson.token;
         console.log(token);
         return token;
     }
@@ -23,10 +27,13 @@ class APIHelper extends Pages
     }
 
 
-    async createOrder(apiContext, loginPayLoad, orderPayLoad)
+    async createOrder(loginPayLoad, orderPayLoad, apiContext)
     {
         let response = {};
-        response.token = await this.getToken(apiContext, loginPayLoad);
+        if (apiContext == undefined){
+            apiContext = await request.newContext();
+            }
+        response.token = await this.getToken(loginPayLoad, apiContext);
         const orderResponse = await apiContext.post(URLS.apiCreateOrderLink,
         {
             data : orderPayLoad,
