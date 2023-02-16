@@ -1,52 +1,53 @@
 const { URLS } = require("../constants/Constants.js");
-const {request} = require('@playwright/test');
 const Pages = require("../pages/Pages.js");
+const fetch = require("cross-fetch");
 
-class APIHelper extends Pages
-{
-    async getToken(loginPayLoad, apiContext)
-     {
-        if (apiContext == undefined){
-            apiContext = await request.newContext();
-            }
-        const loginResponse =  await apiContext.post(URLS.apiLoginLink,
-        {
-            data: loginPayLoad
-         } )
-        const loginResponseJson = await loginResponse.json();
-        const token = loginResponseJson.token;
-        console.log(token);
-        return token;
+class APIHelper extends Pages {
+  
+  async postRequest(url, options) {
+    options.method = "POST";
+    if (options.headers == undefined) {
+      options.headers = {};
     }
+    options.headers["Content-Type"] = "application/json";
+    const result = await fetch(url, options);
+    return result;
+  }
 
-    async setToken (page, token)
-    {
-        page.addInitScript(value => {
-            window.localStorage.setItem('token', value);
-        }, token);
-    }
+  async loginRequest(data) {
+    let options = {};
+    options.body = JSON.stringify(data);
+    return await this.postRequest(URLS.apiLoginLink, options);
+  }
 
+  async getToken(loginPayLoad) {
+    const loginResponse = await this.loginRequest(loginPayLoad);
+    const loginResponseJson = await loginResponse.json();
+    const token = loginResponseJson.token;
+    return token;
+  }
 
-    async createOrder(loginPayLoad, orderPayLoad, apiContext)
-    {
-        let response = {};
-        if (apiContext == undefined){
-            apiContext = await request.newContext();
-            }
-        response.token = await this.getToken(loginPayLoad, apiContext);
-        const orderResponse = await apiContext.post(URLS.apiCreateOrderLink,
-        {
-            data : orderPayLoad,
-            headers:{
-                        'Authorization' : response.token,
-                        'Content-Type'  : 'application/json'
-                    },
-        })
-        const orderResponseJson = await orderResponse.json();
-        console.log(orderResponseJson);
-        const orderId = orderResponseJson.orders[0];
-        response.orderId = orderId;
-        return response;
-    }
+  async setToken(token) {
+    page.addInitScript((value) => {
+      window.localStorage.setItem("token", value);
+    }, token);
+  }
+
+  async createOrderRequest(data, token) {
+    let options = {};
+    options.body = JSON.stringify(data);
+    options.headers = {};
+    options.headers["Authorization"] = token;
+    return await this.postRequest(URLS.apiCreateOrderLink, options);
+  }
+
+  async createOrder (loginPayLoad, orderPayLoad){
+    const token = await this.getToken(loginPayLoad);
+    const orderResponse = await this.createOrderRequest(orderPayLoad, token);
+    const orderResponseJson = await orderResponse.json();
+    const orderId = orderResponseJson.orders[0];
+    return {token: token, orderId: orderId}
+  }
+
 }
 module.exports = APIHelper;

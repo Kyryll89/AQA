@@ -1,51 +1,45 @@
 // @ts-check
-const { devices } = require('@playwright/test');
+const { devices } = require("@playwright/test");
 
 const config = {
-  testDir: './tests',
-  retries :1,
+  testDir: "./tests",
+  retries: 1,
   workers: 3,
   /* Maximum time one test can run for. */
   //10-
   timeout: 30 * 1000,
   expect: {
-  
-    timeout: 5000
+    timeout: 5000,
   },
-  
-  reporter: 'html',
-  projects : [
+
+  reporter: "html",
+  projects: [
     {
-      name : 'safari',
+      name: "safari",
       use: {
-
-        browserName : 'webkit',
-        headless : true,
-        screenshot : 'off',
-        trace : 'on',//off,on 
-        ...devices['iPhone 11'],    
-      }
-
+        browserName: "webkit",
+        headless: true,
+        screenshot: "off",
+        trace: "on", //off,on
+        ...devices["iPhone 11"],
+      },
     },
     {
-      name : 'chrome',
+      name: "chrome",
       use: {
+        browserName: "chromium",
+        headless: false,
+        screenshot: "on",
+        video: "retain-on-failure",
+        ignoreHttpsErrors: true,
+        permissions: ["geolocation"],
 
-        browserName : 'chromium',
-        headless : false,
-        screenshot : 'on',
-        video: 'retain-on-failure',
-        ignoreHttpsErrors:true,
-        permissions:['geolocation'],
-        
-        trace : 'on',//off,on
-       // ...devices['']
-     //   viewport : {width:720,height:720}
-         }
-
-    }
-    ]
-
+        trace: "on", //off,on
+        // ...devices['']
+        //   viewport : {width:720,height:720}
+      },
+    },
+  ],
 };
 
 module.exports = config;

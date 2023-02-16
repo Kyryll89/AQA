@@ -1,23 +1,19 @@
-const {test, expect} = require('@playwright/test');
-const {PAGES, HELPERS} = require('../main.js');
-const {URLS, CREDENTIALS, MESSAGES} = require('../constants/Constants.js');
+const { PAGES, HELPERS } = require("../main.js");
+const { URLS, CREDENTIALS, MESSAGES } = require("../constants/Constants.js");
 
+describe("Login tests", () => {
+  beforeEach(async () => {
+    await HELPERS.navigationHelper.navigateToLoginPage();
+  });
 
-test.describe('Login tests', () => {
+  test("Should login with valid credentials", async () => {
+    await HELPERS.userHelper.loginToSite(CREDENTIALS.username, CREDENTIALS.password);
+    await PAGES.dashboardPage.productsText.waitForElement();
+    await expect(page).toHaveURL(URLS.dashboardPageLink);
+  });
 
-    test.beforeEach(async ({ page }) => {
-        await HELPERS.navigationHelper.navigateToLoginPage(page);
-    });
-
-    test('Should login with valid credentials', async ({page})=>{
-        await HELPERS.userHelper.loginToSite(page, CREDENTIALS.username, CREDENTIALS.password);
-        await PAGES.dashboardPage.productsText.waitForElement(page);
-        await expect (page).toHaveURL(URLS.dashboardPageLink);
-    });
-
-    test('Should login with invalid credentials', async ({page})=>{
-        await HELPERS.userHelper.loginToSite(page, CREDENTIALS.invalid.username, CREDENTIALS.invalid.password);
-        await expect(await HELPERS.attributeHelper.returnAllertDialogLocator(page)).toContainText(MESSAGES.allertDialogMessage);
-    });
-    
+  test("Should login with invalid credentials", async () => {
+    await HELPERS.userHelper.loginToSite(CREDENTIALS.invalid.username, CREDENTIALS.invalid.password);
+    await expect(await HELPERS.attributeHelper.returnAllertDialogLocator()).toEqual(MESSAGES.allertDialogMessage);
+  });
 });

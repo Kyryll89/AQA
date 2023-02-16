@@ -2,20 +2,18 @@ const { URLS } = require("../constants/Constants.js");
 const Pages = require("../pages/Pages.js");
 
 class NavigationHelper extends Pages {
+  async navigateToCart() {
+    await this.header.cartButton.clickElementAndWaitForLoadState();
+  }
 
-    async navigateToCart (page){
-        await this.header.cartButton.clickElementAndWaitForLoadState(page);
-    }
+  async navigateToLoginPage() {
+    await page.goto(URLS.loginPageLink);
+  }
 
-    async navigateToLoginPage (page){
-        await page.goto(URLS.loginPageLink);
-    }
-
-    async navigateToLoginPageAndWaitForElement (page){
-        await page.goto(URLS.loginPageLink);
-        await this.dashboardPage.productsText.waitForElement(page);
-    }
-
+  async navigateToLoginPageAndWaitForElement() {
+    await page.goto(URLS.loginPageLink);
+    await this.dashboardPage.productsText.waitForElement();
+  }
 }
 
 module.exports = NavigationHelper;
