@@ -14,6 +14,6 @@ describe("Login tests", () => {
 
   test("Should login with invalid credentials", async () => {
     await HELPERS.userHelper.loginToSite(CREDENTIALS.invalid.username, CREDENTIALS.invalid.password);
-    await expect(await HELPERS.attributeHelper.returnAllertDialogLocator()).toEqual(MESSAGES.allertDialogMessage);
+    await expect(await HELPERS.attributeHelper.returnAllertDialogText()).toEqual(MESSAGES.allertDialogMessage);
   });
 });

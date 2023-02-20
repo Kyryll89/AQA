@@ -1,19 +1,23 @@
 const Pages = require("../pages/Pages");
 
 class AttributeHelper extends Pages {
-  async returnCheckoutLocator() {
-    return await this.cartPage.checkoutButton.returnElementLocator();
+  async checkChekoutButtontIsVisible() {
+    return await this.cartPage.checkoutButton.checkElementIsVisible();
   }
 
-  async returnAllertDialogLocator() {
+  async checkChekoutButtontIsHidden() {
+    return await this.cartPage.checkoutButton.checkElementIsHidden();
+  }
+
+  async returnAllertDialogText() {
     return await this.loginPage.allertDialog.getTextContent();
   }
 
-  async returnProductsInCartLocator() {
+  async returnProductsInCartText() {
     return await this.cartPage.productsInCartText.getTextContent();
   }
 
-  async returnThankYouMessageLocator() {
+  async returnThankYouMessageText() {
     return await this.thankYouPage.thankYouMessage.getTextContent();
   }
 

@@ -2,19 +2,21 @@ const dotenv = require("dotenv");
 const Helpers = require("./heplers/Helpers.js");
 const Pages = require("./pages/Pages.js");
 const { chromium, webkit, devices } = require("playwright");
-const { test } = require("@playwright/test")
+const Utils = require("./utils/utils.js");
 
 // setupEnv();
 // test("", async ({page}) => {
 //   page.evaluate
 // })
-// jest.setTimeout(3000000);
+jest.setTimeout(100*1000);
 // jest.retryTimes(2)
 
 let context;
+
 beforeEach(async () => {
   context = await getContext();
   global.page = context.page;
+  global.utils = new Utils();
 
   //   allure.writeEnvironmentInfo({
   //     BROWSER: process.env.BROWSER ? process.env.BROWSER : "CHROME",

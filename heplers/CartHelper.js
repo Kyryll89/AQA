@@ -1,6 +1,12 @@
 const Pages = require("../pages/Pages.js");
 
 class CartHelper extends Pages {
+
+  async addFirstProductToCart(){
+    await page.waitForLoadState("networkidle");
+    await this.dashboardPage.productAddToCart.clickOnFirstElement();
+  }
+
   async searchProductAddCart(productName) {
     const titles = await this.dashboardPage.productsText.getAllTextContent();
     // console.log(titles);
@@ -41,6 +47,7 @@ class CartHelper extends Pages {
         .nth(i)
         .click();
     }
+    await utils.waitForSec(1);
   }
 }
 module.exports = CartHelper;

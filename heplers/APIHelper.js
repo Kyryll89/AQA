@@ -49,5 +49,20 @@ class APIHelper extends Pages {
     return {token: token, orderId: orderId}
   }
 
+  async createGetAllProductsRequest(data, token) {
+    let options = {};
+    options.body = JSON.stringify(data);
+    options.headers = {};
+    options.headers["Authorization"] = token;
+    return await this.postRequest(URLS.getAllProductsLink, options);
+  }
+
+  async getAllProducts (loginPayLoad, getAllProductsPayload) {
+    const token = await this.getToken(loginPayLoad);
+    const allProductsResponse = await this.createGetAllProductsRequest(getAllProductsPayload, token);
+    const allAvailableProducts = await allProductsResponse.json();
+    return allAvailableProducts
+  }
+  
 }
 module.exports = APIHelper;

@@ -1,3 +1,4 @@
+
 class Element {
   constructor(elementName, pageName, elementLocator) {
     this.elementName = elementName;
@@ -6,44 +7,85 @@ class Element {
   }
 
   async clickElement() {
-    await page.locator(this.elementLocator).click();
+    await allure.step(`Click on "${this.elementName}" at "${this.pageName}"`, async ()=>{
+      await page.locator(this.elementLocator).click();
+    })
   }
 
   async clickElementAndWaitForLoadState() {
-    await page.locator(this.elementLocator).click();
-    await page.waitForLoadState("networkidle");
+    await allure.step(`Click on "${this.elementName}" at "${this.pageName}" and wait for load state`, async ()=>{
+      await page.locator(this.elementLocator).click();
+      await page.waitForLoadState("networkidle");
+    })
   }
 
   async fillInput(data) {
-    await page.locator(this.elementLocator).fill(data);
+    await allure.step(`Fill "${data}" into "${this.elementName}" at "${this.pageName}"`, async ()=>{
+      await page.locator(this.elementLocator).fill(data);
+    })
   }
 
   async typeInput(data) {
-    await page.locator(this.elementLocator).type(data);
+    await allure.step(`Type "${data}" into "${this.elementName}" at "${this.pageName}"`, async ()=>{
+      await page.locator(this.elementLocator).type(data);
+    })
   }
 
   async getTextContent() {
-    return await page.locator(this.elementLocator).textContent();
+    return await allure.step(`Get text from "${this.elementName}" at "${this.pageName}"`, async ()=>{
+      return await page.locator(this.elementLocator).textContent();
+    })
   }
 
   async getAllTextContent() {
-    return await page.locator(this.elementLocator).allTextContents();
+    return await allure.step(`Get ALL texts from "${this.elementName}" at "${this.pageName}"`, async ()=>{
+      return await page.locator(this.elementLocator).allTextContents();
+    })
   }
 
   async waitForElement() {
-    await page.locator(this.elementLocator).first().waitFor();
+    await allure.step(`Wait for "${this.elementName}" at "${this.pageName}"`, async ()=>{
+      await page.locator(this.elementLocator).first().waitFor();
+    })
   }
 
   async countElements() {
-    return await page.locator(this.elementLocator).count();
+    return await allure.step(`Count all "${this.elementName}" at "${this.pageName}"`, async ()=>{
+      return await page.locator(this.elementLocator).count();
+    })
   }
 
   async typeInputWithDelaying(data) {
-    await page.locator(this.elementLocator).type(data, { delay: 200 });
+    await allure.step(`Type "${data}" into "${this.elementName}" at "${this.pageName}" with delaying`, async ()=>{
+      await page.locator(this.elementLocator).type(data, { delay: 200 });
+    })
   }
 
   async returnElementLocator() {
-    return page.locator(this.elementLocator);
+    return await allure.step(`Return locator of "${this.elementName}" at "${this.pageName}"`, async ()=>{
+      await page.pause();
+      const x = await page.locator(this.elementLocator).isVisible();
+      console.log(x);
+    })
+  }
+
+  async checkElementIsVisible() {
+    return await allure.step(`Check Element "${this.elementName}" at "${this.pageName}" is visible`, async ()=> {
+      await this.waitForElement();
+      return await page.locator(this.elementLocator).isVisible();
+    })
+  }
+
+  async checkElementIsHidden() {
+    return await allure.step(`Check Element "${this.elementName}" at "${this.pageName}" is hidden`, async ()=> {
+      return await page.locator(this.elementLocator).isHidden();
+    })
+  }
+
+  async clickOnFirstElement() {
+    await allure.step(`Click on first element "${this.elementName}" at "${this.pageName}"`, async ()=>{
+      await page.locator(this.elementLocator).first().click();
+    })
   }
 }
 module.exports = { Element };
