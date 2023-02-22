@@ -7,5 +7,11 @@ class Utils {
           await page.waitForTimeout(time*1000);
         })
       }
+
+    async getPageUrl(){
+      return await allure.step(`Get page URL`, async ()=>{
+        return await page.url();
+      })
+    }
 }
 module.exports = Utils;

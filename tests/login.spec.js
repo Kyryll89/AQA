@@ -1,4 +1,4 @@
-const { PAGES, HELPERS } = require("../main.js");
+const { HELPERS } = require("../main.js");
 const { URLS, CREDENTIALS, MESSAGES } = require("../constants/Constants.js");
 
 describe("Login tests", () => {
@@ -6,14 +6,14 @@ describe("Login tests", () => {
     await HELPERS.navigationHelper.navigateToLoginPage();
   });
 
-  test("Should login with valid credentials", async () => {
+  test("Should login with valid credentials @refactor", async () => {
     await HELPERS.userHelper.loginToSite(CREDENTIALS.username, CREDENTIALS.password);
-    await PAGES.dashboardPage.productsText.waitForElement();
-    await expect(page).toHaveURL(URLS.dashboardPageLink);
+    await HELPERS.userHelper.dashboardPage.productsText.waitForElement();
+    expect(await utils.getPageUrl()).toEqual(URLS.dashboardPageLink);
   });
 
   test("Should login with invalid credentials", async () => {
     await HELPERS.userHelper.loginToSite(CREDENTIALS.invalid.username, CREDENTIALS.invalid.password);
-    await expect(await HELPERS.attributeHelper.returnAllertDialogText()).toEqual(MESSAGES.allertDialogMessage);
+    expect(await HELPERS.attributeHelper.returnAllertDialogText()).toEqual(MESSAGES.allertDialogMessage);
   });
 });

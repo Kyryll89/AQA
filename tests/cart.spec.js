@@ -27,7 +27,7 @@ describe("Cart tests", () => {
       await expect (await HELPERS.attributeHelper.checkChekoutButtontIsHidden()).toBe(true);
   })
 
-  test("Should add first product to cart @refactor", async () => {
+  test("Should add first product to cart", async () => {
     await HELPERS.cartHelper.addFirstProductToCart();
     await HELPERS.navigationHelper.navigateToCart();
     expect(await HELPERS.attributeHelper.returnProductsInCartText()).toEqual(allAvailableProducts.data[0].productName);

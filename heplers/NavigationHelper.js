@@ -3,16 +3,22 @@ const Pages = require("../pages/Pages.js");
 
 class NavigationHelper extends Pages {
   async navigateToCart() {
-    await this.header.cartButton.clickElementAndWaitForLoadState();
+    await allure.step("Navigate to cart", async () => {
+      await this.header.cartButton.clickElementAndWaitForLoadState();
+    })
   }
 
   async navigateToLoginPage() {
-    await page.goto(URLS.loginPageLink);
+    await allure.step("Navigate to login page", async () => {
+      await page.goto(URLS.loginPageLink);
+    })
   }
 
   async navigateToLoginPageAndWaitForElement() {
-    await page.goto(URLS.loginPageLink);
-    await this.dashboardPage.productsText.waitForElement();
+    await allure.step("Navigate to login page & wait for element", async () => {
+      await page.goto(URLS.loginPageLink);
+      await this.dashboardPage.productsText.waitForElement();
+    })
   }
 }
 
