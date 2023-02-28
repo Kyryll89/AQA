@@ -8,7 +8,7 @@ const Utils = require("./utils/utils.js");
 // test("", async ({page}) => {
 //   page.evaluate
 // })
-jest.setTimeout(100*1000);
+jest.setTimeout(30*1000);
 // jest.retryTimes(2)
 
 let context;
